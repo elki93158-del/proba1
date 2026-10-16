@@ -5,8 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>A miña primeira proba</title>
   <style>
-    body { font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3;
+    :root { --bg: #0d1117; --fg: #e6edf3; }
+    :root[data-tema="claro"] { --bg: #ffffff; --fg: #1f2328; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--fg);
            display: grid; place-items: center; min-height: 100vh; margin: 0; text-align: center; }
+    #tema { position: fixed; top: 1rem; right: 1rem; background: transparent; color: var(--fg);
+            border: 1px solid var(--fg); }
+    #tema:hover { background: transparent; opacity: .7; }
     button { font-size: 1.1rem; padding: .6rem 1.2rem; border: 0; border-radius: 8px;
              background: #238636; color: #fff; cursor: pointer; }
     button:hover { background: #2ea043; }
@@ -14,6 +19,7 @@
   </style>
 </head>
 <body>
+  <button id="tema" aria-label="Cambiar tema">🌙 / ☀️</button>
   <main>
     <h1>Ola, mundo! 👋</h1>
     <p id="msg">Esta páxina saíu dun repo.</p>
@@ -22,6 +28,15 @@
   <script>
     const frases = ["Funciona!", "Outra vez?", "Xa chega, non?", "Vale, vale... 😄", "Isto é un contador de cliques con vergoña."];
     let n = 0;
+
+    const raiz = document.documentElement;
+    try { raiz.dataset.tema = localStorage.getItem("tema") || "escuro"; }
+    catch (e) { raiz.dataset.tema = "escuro"; }
+    document.getElementById("tema").onclick = () => {
+      raiz.dataset.tema = raiz.dataset.tema === "claro" ? "escuro" : "claro";
+      try { localStorage.setItem("tema", raiz.dataset.tema); } catch (e) {}
+    };
+
     document.getElementById("btn").onclick = () => {
       document.getElementById("msg").textContent = frases[n++ % frases.length];
     };
