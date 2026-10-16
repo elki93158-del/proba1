@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A miña primeira proba</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3;
+           display: grid; place-items: center; min-height: 100vh; margin: 0; text-align: center; }
+    button { font-size: 1.1rem; padding: .6rem 1.2rem; border: 0; border-radius: 8px;
+             background: #238636; color: #fff; cursor: pointer; }
+    button:hover { background: #2ea043; }
+    p { font-size: 1.4rem; min-height: 2rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Ola, mundo! 👋</h1>
+    <p id="msg">Esta páxina saíu dun repo.</p>
+    <button id="btn">Preme aquí</button>
+  </main>
+  <script>
+    const frases = ["Funciona!", "Outra vez?", "Xa chega, non?", "Vale, vale... 😄", "Isto é un contador de cliques con vergoña."];
+    let n = 0;
+    document.getElementById("btn").onclick = () => {
+      document.getElementById("msg").textContent = frases[n++ % frases.length];
+    };
+  </script>
+</body>
+</html>
